@@ -118,7 +118,16 @@ export default function VercelPage() {
     return () => el.removeEventListener("scroll", onScroll);
   }, [blogs.length]);
 
-  const text = `Modern web development often involves blending clear communication with subtle interaction design, and hyperlinks play a major role in that experience. When creating personal portfolios, developers often reference their best work using simple inline markers like project names paired with URLs, such as portfolio[https://dexteerth.me] or github[https://github.com]. This lightweight syntax keeps the text readable while still embedding meaningful links that can later be parsed into proper clickable elements. Teams working on collaborative projects frequently document tools and resources using similar patterns. For example, a backend engineer might reference api-docs[https://api.example.com/docs], while a designer could point to their figma-file[https://figma.com/example] to illustrate layout intentions. These link markers help maintain flow in long paragraphs without breaking the reader’s attention. Educational content also benefits from this format. A tutorial might say: “If you're learning React, start with react-docs[https://react.dev] before jumping into advanced libraries like framer-motion[https://www.framer.com/motion].” This keeps the narrative clean while still offering paths for deeper exploration. Even teams writing internal notes or engineering logs can adopt this pattern to keep discussions focused. Statements like “Our deployment pipeline relies on workflow-config[https://ci.example.com/config]” or “Refer to monitoring-dashboard[https://status.example.com] for live system metrics” remain readable without cluttering the text with long raw URLs. Using inline hyperlink syntax is especially useful when the final rendering layer automatically transforms these markers into styled anchor components, improving usability while preserving a clean writing format. Modern web development often involves blending clear communication with subtle interaction design, and hyperlinks play a major role in that experience. When creating personal portfolios, developers often reference their best work using simple inline markers like project names paired with URLs, such as portfolio[https://dexteerth.me] or github[https://github.com]. This lightweight syntax keeps the text readable while still embedding meaningful links that can later be parsed into proper clickable elements. Teams working on collaborative projects frequently document tools and best work using simple inline markers like project names paired with URLs, such as portfolio or github . This lightweight syntax keeps the text readable while still embedding meaningful links that can later be parsed into proper clickable elements. Teams working on collaborative projects frequently document tools and`;
+  const text = `Oops — looks like the Gemini API has hit its daily limit.
+So instead of AI-generated text, here’s a quick about me for now.
+
+I’m Teerth Kulkarni[https://www.linkedin.com/in/teerth-kulkarni-152334290/], a final-year engineering student from WCE Sangli[https://walchandsangli.ac.in/]. I’ve always been inclined toward creative work — drawing, designing interfaces, editing videos, and experimenting with visual ideas. Over time, that interest naturally translated into building things on the web, where design meets engineering. You can see most of my visual experiments and UI explorations on DexT[https://www.dexteerth.me/], which acts as my personal playground on the internet.
+
+Yeah… I already have quite a few projects, but now I’m intentionally building a series of design-specific projects, where visual clarity, interaction, and execution quality matter more than raw functionality. This project is the first in that track. The idea is to slow down, care deeply about details, and sharpen my design instincts while still keeping things technically sound.
+
+That said, my background isn’t limited to design. I also work on backend systems and full-stack applications, and I enjoy understanding products end-to-end — from APIs and data flow to deployment. Some of my full-stack and backend work lives on my GitHub[https://github.com/teerth123]. Earlier in my journey (and not part of this design-heavy track), I built a website as part of a giveaway by Striver, inspired by the TUFF (takeUforward) ecosystem — you can see the demo here[https://x.com/DexTee_17/status/1942136333423477105] and the live version here[https://tufff.netlify.app/]. Along the way, I’ve also had a few small but meaningful wins: receiving a 1 lakh INR government grant[https://www.linkedin.com/feed/update/urn:li:activity:7404567633020530688/] for this project, making an open-source contribution here[https://github.com/dodopayments/billingsdk/pull/161], and getting noticed by Klavis AI[https://www.klavis.ai/] (a YC-backed startup) after I redesigned their hero section — the redesign post is here[https://x.com/Klavis_AI/status/1960771091179413561] and the live version here[https://klavisaihero.netlify.app/].
+
+Currently, I’m working at AT20.ai[https://www.at20.ai/], where I got placed on-campus, and I’m grateful to Kirat[https://x.com/kirat_tw] for the guidance and learning resources that helped me stay consistent. I share my journey, experiments, and small wins on Twitter[https://x.com/DexTee_17]. I’m not a 100x developer yet — I’m still learning, failing, and improving. Thanks for stopping by!`;
   const FormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     playSound();
@@ -203,7 +212,7 @@ export default function VercelPage() {
                   type="text"
                   name="link"
                   autoComplete="off"
-                  placeholder="enter wikipedia article link"
+                  placeholder="enter any topic"
                   className="focus:outline-none p-2 bg-transparent placeholder:text-[#a3a3a3] dark:placeholder:text-[#737373]"
                 />
                 <button type="submit" className="px-3">
@@ -312,6 +321,7 @@ export default function VercelPage() {
                   Title={blog.Title}
                   Desc={blog.Desc}
                   onWordClick={(word, url) => setNewWord({ text: word, url })}
+                  isDummyText={blog.Desc === text}
                 />
               )}
             </motion.div>

@@ -24,6 +24,7 @@ interface GPTAnimationProps {
   Title: string;
   Desc: string;
   onWordClick: (word: string, url?: string) => void;
+  isDummyText?: boolean;
 }
 
 function parseTextWithLinks(text: string) {
@@ -66,6 +67,7 @@ export default function GPTAnimation({
   Title,
   Desc,
   onWordClick,
+  isDummyText = false,
 }: GPTAnimationProps) {
   // Check if content is loading
   const isLoading = Desc === "LOADING";
@@ -106,12 +108,24 @@ export default function GPTAnimation({
                   onClick={(e) => {
                     e.preventDefault();
                     console.log("Hyperlink clicked:", { text: part.text, url: part.url });
-                    onWordClick(part.text, part.url);
+                    if (isDummyText && part.url) {
+                      // For dummy text, open the actual link in a new window
+                      window.open(part.url, "_blank");
+                    } else {
+                      // For AI-generated content, trigger content generation
+                      onWordClick(part.text, part.url);
+                    }
                   }}
                   onTouchEnd={(e) => {
                     e.preventDefault();
                     console.log("Hyperlink touched:", { text: part.text, url: part.url });
-                    onWordClick(part.text, part.url);
+                    if (isDummyText && part.url) {
+                      // For dummy text, open the actual link in a new window
+                      window.open(part.url, "_blank");
+                    } else {
+                      // For AI-generated content, trigger content generation
+                      onWordClick(part.text, part.url);
+                    }
                   }}
                 >
                   {part.text}
