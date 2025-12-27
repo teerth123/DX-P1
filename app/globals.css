@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --breakpoint-xsm: 320px;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+  }
+  
+  :root.dark {
+    color-scheme: dark;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer utilities {
+  /* Light mode grid - black lines (default) */
+  .bg-grid {
+    background-color: white;
+    background-image:
+      linear-gradient(to right, rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  /* Dark mode grid - white lines (override) */
+  .dark .bg-grid {
+    background-color: black;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+@layer utilities {
+  /* Light mode diagonal lines - black (default) */
+  .bg-diagonal-lines {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(0,0,0,0.08) 0px,
+      rgba(0,0,0,0.08) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  }
+  
+  /* Dark mode diagonal lines - white (override) */
+  :root.dark .bg-diagonal-lines {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(255,255,255,0.08) 0px,
+      rgba(255,255,255,0.08) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  }
+}
+
+@layer utilities {
+  /* Custom shadow for light mode */
+  .shadow-custom {
+    box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 4px 6px rgba(34,42,53,.04), 0 24px 68px rgba(47,48,55,.05), 0 2px 3px rgba(0,0,0,.04);
+  }
+  
+  /* Custom shadow for dark mode */
+  :root.dark .shadow-custom {
+    box-shadow: 0 1px 1px rgba(255,255,255,.08), 0 4px 6px rgba(220,220,220,.06), 0 24px 68px rgba(200,200,200,.08), 0 2px 3px rgba(255,255,255,.06);
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Light mode (default) */
+::selection {
+  background: #111;
+  color: #fafafa;
+}
+
+::-moz-selection {
+  background: #111;
+  color: #fafafa;
+}
+
+/* Dark mode */
+.dark ::selection,
+.dark-theme ::selection {
+  background: #fff;
+  color: #000;
+}
+
+.dark ::-moz-selection,
+.dark-theme ::-moz-selection {
+  background: #fff;
+  color: #000;
+}
+
+
+@layer base {
+  .font-outline-2 {
+    -webkit-text-stroke: 1px #333333;
+  }
+  .font-outline-4 {
+    -webkit-text-stroke: 4px #333333;
+  }
+}   
